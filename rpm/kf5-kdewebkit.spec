@@ -6,7 +6,7 @@
 # << macros
 
 Name:       kf5-kdewebkit
-Summary:    KDE Frameworks 5 Tier 1 solution for spell checking
+Summary:    KDE Frameworks 5 Tier 3 integration module for WebKit
 Version:    4.99.0
 Release:    1
 Group:      System/Base
@@ -16,6 +16,7 @@ Source0:    %{name}-%{version}.tar.xz
 Source100:  kf5-kdewebkit.yaml
 Source101:  kf5-kdewebkit-rpmlintrc
 Requires:   kf5-filesystem
+Requires:   kf5-kwallet-libs
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(Qt5Core)
@@ -26,13 +27,21 @@ BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Test)
+BuildRequires:  pkgconfig(Qt5WebKit)
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  qt5-tools
+BuildRequires:  kf5-kconfig-devel
+BuildRequires:  kf5-kcoreaddons-devel
+BuildRequires:  kf5-kio-devel
+BuildRequires:  kf5-kjobwidgets-devel
+BuildRequires:  kf5-kparts-devel
+BuildRequires:  kf5-kservice-devel
+BuildRequires:  kf5-kwallet-devel
 
 
 %description
-KDE Frameworks 5 Tier 1 addon for advanced thread management.
+KDE Frameworks 5 Tier 3 integration module for WebKit
 
 
 
@@ -40,6 +49,13 @@ KDE Frameworks 5 Tier 1 addon for advanced thread management.
 Summary:    Development files for %{name}
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
+Requires:   kf5-kconfig-devel
+Requires:   kf5-kcoreaddons-devel
+Requires:   kf5-kio-devel
+Requires:   kf5-kjobwidgets-devel
+Requires:   kf5-kparts-devel
+Requires:   kf5-kservice-devel
+Requires:   kf5-kwallet-devel
 
 %description devel
 The %{name}-devel package contains the files necessary to develop applications
@@ -82,17 +98,17 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc COPYING.LIB README.md
-%{_kf5_libdir}/libKF5ThreadWeaver.so.*
+%{_kf5_libdir}/libKF5WebKit.so.*
 # >> files
 # << files
 
 
 %files devel
 %defattr(-,root,root,-)
-%{_kf5_includedir}/ThreadWeaver/
 %{_kf5_includedir}/kdewebkit_version.h
-%{_kf5_libdir}/libKF5ThreadWeaver.so
-%{_kf5_libdir}/cmake/KF5ThreadWeaver
+%{_kf5_includedir}/KDEWebKit
+%{_kf5_libdir}/libKF5WebKit.so
+%{_kf5_libdir}/cmake/KF5WebKit
 %{_datadir}/qt5/mkspecs/modules/*.pri
 # >> files devel
 # << files devel
