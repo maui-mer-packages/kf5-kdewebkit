@@ -1,0 +1,78 @@
+Name         : kf5-kdewebkit
+Version      : 4.99.0
+Release      : 1
+Group        : System/Base
+License      : GPLv2+
+Summary      : KDE Frameworks 5 Tier 3 integration module for WebKit
+Description  : |
+  KDE Frameworks 5 Tier 3 integration module for WebKit
+URL          : http://www.kde.org
+SetupOptions : -q -n %{name}-%{version}/upstream
+
+Sources:
+    - "%{name}-%{version}.tar.xz"
+
+RpmLintIgnore:
+    - devel-file-in-non-devel-package
+    - no-changelogname-tag
+    - library-without-ldconfig-postin
+    - library-without-ldconfig-postun
+
+Configure    : none
+Builder      : none
+
+PkgBR:
+    - kf5-rpm-macros
+    - extra-cmake-modules
+    - qt5-tools
+    - kf5-kconfig-devel
+    - kf5-kcoreaddons-devel
+    - kf5-kio-devel
+    - kf5-kjobwidgets-devel
+    - kf5-kparts-devel
+    - kf5-kservice-devel
+    - kf5-kwallet-devel
+PkgConfigBR:
+    - Qt5Core
+    - Qt5DBus
+    - Qt5Xml
+    - Qt5Network
+    - Qt5Gui
+    - Qt5Widgets
+    - Qt5Concurrent
+    - Qt5Test
+    - Qt5WebKit
+Requires:
+    - kf5-filesystem
+    - kf5-kwallet-libs
+
+RequiresPost:
+    - /sbin/ldconfig
+RequiresPostUn:
+    - /sbin/ldconfig
+
+Files:
+    - "%doc COPYING.LIB README.md"
+    - "%{_kf5_libdir}/libKF5WebKit.so.*"
+
+SubPackages:
+    - Name: devel
+      Group: Development/Libraries
+      Summary: Development files for %{name}
+      Description: |
+        The %{name}-devel package contains the files necessary to develop applications
+        that use %{name}.
+      Requires:
+          - kf5-kconfig-devel
+          - kf5-kcoreaddons-devel
+          - kf5-kio-devel
+          - kf5-kjobwidgets-devel
+          - kf5-kparts-devel
+          - kf5-kservice-devel
+          - kf5-kwallet-devel
+      Files:
+          - "%{_kf5_includedir}/kdewebkit_version.h"
+          - "%{_kf5_includedir}/KDEWebKit"
+          - "%{_kf5_libdir}/libKF5WebKit.so"
+          - "%{_kf5_libdir}/cmake/KF5WebKit"
+          - "%{_datadir}/qt5/mkspecs/modules/*.pri"
